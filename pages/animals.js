@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <>
       <div className="container">
-        <Animals session={session} />
+        {session ? <Animals session={session} /> : <div>Please Login</div>}
       </div>
     </>
   );

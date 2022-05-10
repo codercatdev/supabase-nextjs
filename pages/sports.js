@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <>
       <div className="container">
-        <Sports session={session} />
+        {session ? <Sports session={session} /> : <div>Please Login</div>}
       </div>
     </>
   );

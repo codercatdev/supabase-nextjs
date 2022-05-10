@@ -4,26 +4,9 @@ import Auth from '../components/Auth';
 import Account from '../components/Account';
 
 export default function Home() {
-  const [session, setSession] = useState(null);
-
-  useEffect(() => {
-    setSession(supabase.auth.session());
-
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-  }, []);
-
   return (
     <>
-      {process.env.NEXT_PUBLIC_API_URL}
-      <div className="container" style={{ padding: '50px 0 100px 0' }}>
-        {!session ? (
-          <Auth />
-        ) : (
-          <Account key={session.user.id} session={session} />
-        )}
-      </div>
+      <div className="container">Welcome to CodingCat.dev Supabase Example</div>
     </>
   );
 }

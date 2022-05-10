@@ -9,6 +9,7 @@ import { apiHandler } from '../../helpers/api';
 export default apiHandler(handler);
 
 function handler(req, res) {
+  console.log(req);
   switch (req.method) {
     case 'GET':
       return res.json(req.auth);

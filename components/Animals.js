@@ -3,21 +3,21 @@ import { faker } from '@faker-js/faker';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-export default function Sports({ session }) {
-  const [sports, setSports] = useState([]);
+export default function Animals({ session }) {
+  const [animals, setSports] = useState([]);
   useEffect(() => {
     const sub = supabase
-      .from('sports')
+      .from('animals')
       .on('*', (payload) => {
         supabase
-          .from('sports')
+          .from('animals')
           .select('*')
           .order('created_at', { ascending: false })
           .then((d) => setSports(d.data));
       })
       .subscribe();
     supabase
-      .from('sports')
+      .from('animals')
       .select('*')
       .order('created_at', { ascending: false })
       .then((d) => setSports(d.data));
@@ -28,18 +28,18 @@ export default function Sports({ session }) {
 
   const addSports = async () => {
     const name = faker.name.findName();
-    const image = faker.image.sports(null, null, true);
-    await supabase.from('sports').insert([{ name, image }]);
+    const image = faker.image.animals(null, null, true);
+    await supabase.from('animals').insert([{ name, image }]);
   };
   return (
     <div>
       {session && (
         <div>
-          <button onClick={() => addSports()}>Add Sports</button>
+          <button onClick={() => addSports()}>Add Animals</button>
           <ul
             style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr' }}
           >
-            {sports?.map((sport) => (
+            {animals?.map((sport) => (
               <li
                 key={sport.id}
                 style={{ display: 'flex', flexDirection: 'column' }}

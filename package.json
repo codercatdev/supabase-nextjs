@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@builder.io/react": "^1.1.51",
     "@faker-js/faker": "^6.3.1",
     "@supabase/supabase-js": "^1.35.3",
     "express-jwt": "^7.7.0",

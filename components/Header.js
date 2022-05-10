@@ -15,6 +15,9 @@ export default function Header() {
       <Link href="/sports">
         <a>sports</a>
       </Link>
+      <Link href="/animals">
+        <a>animals</a>
+      </Link>
     </header>
   );
 }

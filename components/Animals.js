@@ -4,23 +4,24 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 export default function Animals({ session }) {
-  const [animals, setSports] = useState([]);
+  const [animals, setAnimals] = useState([]);
   useEffect(() => {
     const sub = supabase
       .from('animals')
       .on('*', (payload) => {
-        supabase
-          .from('animals')
-          .select('*')
-          .order('created_at', { ascending: false })
-          .then((d) => setSports(d.data));
+        setAnimals((current) => [payload.new, ...current]);
+        // supabase
+        //   .from('animals')
+        //   .select('*')
+        //   .order('created_at', { ascending: false })
+        //   .then((d) => setAnimals(d.data));
       })
       .subscribe();
     supabase
       .from('animals')
       .select('*')
       .order('created_at', { ascending: false })
-      .then((d) => setSports(d.data));
+      .then((d) => setAnimals(d.data));
     return () => {
       if (sub) sub.unsubscribe();
     };

@@ -4,6 +4,7 @@ import DefaultErrorPage from 'next/error';
 import Head from 'next/head';
 import Link from 'next/link';
 import { getTargetingValues } from '@builder.io/personalization-utils';
+import { supabase } from '../utils/supabaseServer';
 
 export async function getStaticProps({ params }) {
   const isPersonalizedRequest = params?.path?.[0].startsWith(';');
@@ -23,9 +24,15 @@ export async function getStaticProps({ params }) {
       })
       .toPromise()) || null;
 
+  const { data: sports } = await supabase
+    .from('sports')
+    .select('*')
+    .order('created_at', { ascending: false });
+
   return {
     props: {
       page,
+      sports,
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
@@ -47,7 +54,7 @@ export async function getStaticPaths() {
   };
 }
 
-export default function Path({ page }) {
+export default function Path({ page, sports }) {
   const router = useRouter();
 
   if (router.isFallback) {
@@ -71,7 +78,12 @@ export default function Path({ page }) {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <BuilderComponent renderLink={Link} model="page" content={page} />
+      <BuilderComponent
+        renderLink={Link}
+        model="page"
+        content={page}
+        data={{ sports }}
+      />
     </>
   );
 }

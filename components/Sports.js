@@ -9,11 +9,12 @@ export default function Sports({ session }) {
     const sub = supabase
       .from('sports')
       .on('*', (payload) => {
-        supabase
-          .from('sports')
-          .select('*')
-          .order('created_at', { ascending: false })
-          .then((d) => setSports(d.data));
+        setSports((current) => [payload.new, ...current]);
+        // supabase
+        //   .from('sports')
+        //   .select('*')
+        //   .order('created_at', { ascending: false })
+        //   .then((d) => console.log(d));
       })
       .subscribe();
     supabase
